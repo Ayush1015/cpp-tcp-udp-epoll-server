@@ -1,0 +1,30 @@
+name: C++ build and tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+      - name: Build with warnings as errors
+        run: cmake --build build --parallel 2
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+      - name: Repeat concurrent client tests
+        run: for i in $(seq 1 10); do ./build/network_tests '[concurrency]' || exit 1; done
+  thread-sanitizer:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure and build
+        run: |
+          cmake -S . -B build-tsan -DENABLE_TSAN=ON -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build-tsan --parallel 2
+      - name: Test with ThreadSanitizer
+        run: ./build-tsan/network_tests
