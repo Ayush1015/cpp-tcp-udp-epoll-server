@@ -1,0 +1,4 @@
+build*/
+*.zip
+
+third_party/catch.hpp
