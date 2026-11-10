@@ -1,6 +1,6 @@
 # C++ TCP/UDP Epoll Server
 
-An AI-assisted learning project in C++17 for Linux: a multi-client IPv4 TCP/UDP
+A learning project in C++17 for Linux: a multi-client IPv4 TCP/UDP
 uppercase echo service, level-triggered epoll, bounded thread-pool work handling,
 and graceful shutdown. It reuses the thread pool from
 [cpp-thread-pool-scheduler](https://github.com/Ayush1015/cpp-thread-pool-scheduler).
@@ -117,14 +117,6 @@ size, oversize rejection, slow-reader traffic, binary/empty/maximum UDP,
 client admission, disconnect churn, occupied ports, tiny-queue overload, concurrent stop and idempotent stop.
 The CI workflow builds/tests on Ubuntu with GCC and Clang, plus a separate TSAN
 job. Verify the actual Actions result before claiming a hosted run passed.
-
-## Attribution and resume use
-
-This starter was built with AI assistance. Receiving it is not independent
-implementation experience. Read and run it, explain its ownership and shutdown
-rules, and make and test a meaningful personal change before claiming your own
-contribution. Keep that contribution separate from the AI-assisted starting code.
-No interview-prep documents or walkthroughs are included.
 
 ## License
 
